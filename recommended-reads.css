@@ -1,0 +1,158 @@
+.rr-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  overflow-x: hidden;
+  align-items: center;
+  flex-direction: column;
+  background-size: cover;
+  background-image: url("public/rough-horn-2146181_19202-1500h.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* ── Page title ── */
+.rr-top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.rr-title-container {
+  width: 90%;
+  display: flex;
+  margin-top: var(--dl-space-space-quadruple);
+  margin-bottom: var(--dl-space-space-quadruple);
+  align-items: flex-start;
+  flex-direction: column;
+}
+.rr-intro-title {
+  color: rgb(255, 255, 255);
+  width: 100%;
+  font-size: 150%;
+  align-self: center;
+  text-align: center;
+  font-family: "Poppins";
+  font-weight: 400;
+  letter-spacing: 0.6em;
+}
+.rr-main-title {
+  color: rgb(255, 255, 255);
+  width: 100%;
+  font-size: 400%;
+  align-self: center;
+  text-align: center;
+  letter-spacing: 0.2em;
+}
+
+/* ── Grid section ── */
+.rr-grid-section {
+  width: 100%;
+  padding: var(--dl-space-space-doubleunit) var(--dl-space-space-doubleunit) var(--dl-space-space-quadruple);
+}
+.rr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--dl-space-space-doubleunit);
+  width: 100%;
+}
+.rr-card {
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s;
+}
+.rr-card:hover {
+  transform: scale(1.02);
+}
+.rr-card-cover-wrap {
+  width: 100%;
+  aspect-ratio: 2/3;
+  overflow: hidden;
+}
+.rr-card-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.rr-card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+.rr-card-title {
+  color: #ffffff;
+  font-size: 90%;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  margin: 0;
+}
+.rr-card-author {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 80%;
+  margin: 0;
+}
+.rr-card-genre {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 75%;
+  font-style: italic;
+  margin: 0;
+}
+.rr-card-desc {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 80%;
+  line-height: 1.5;
+  margin: 4px 0 0;
+  flex: 1;
+}
+.rr-amazon-btn {
+  display: inline-block;
+  margin-top: auto;
+  padding: 8px 16px;
+  background: #FF9900;
+  color: #000000;
+  font-size: 80%;
+  font-weight: 600;
+  border-radius: 4px;
+  text-decoration: none;
+  text-align: center;
+  transition: background 0.2s;
+}
+.rr-amazon-btn:hover {
+  background: #e68a00;
+}
+.rr-coming-soon {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 75%;
+  font-style: italic;
+  margin: auto 0 0;
+}
+.rr-disclaimer {
+  color: #ffffff;
+  font-size: 75%;
+  font-style: italic;
+  text-align: center;
+  width: 100%;
+  margin-top: var(--dl-space-space-halfunit);
+}
+
+@media(max-width: 1200px) {
+  .rr-main-title { font-size: 300%; }
+}
+@media(max-width: 991px) {
+  .rr-grid { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+}
+@media(max-width: 767px) {
+  .rr-main-title { font-size: 220%; }
+  .rr-grid-section { padding: var(--dl-space-space-unit); }
+  .rr-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: var(--dl-space-space-unit); }
+}
+@media(max-width: 479px) {
+  .rr-grid { grid-template-columns: 1fr 1fr; }
+}

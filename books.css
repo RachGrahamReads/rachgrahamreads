@@ -832,6 +832,140 @@
   flex-direction: row;
   justify-content: space-around;
 }
+
+/* ── While You Wait scroll strip ── */
+.wyw-section {
+  width: 100%;
+  padding: var(--dl-space-space-quadruple) var(--dl-space-space-doubleunit) var(--dl-space-space-doubleunit);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.wyw-title {
+  color: #ffffff;
+  font-size: 400%;
+  letter-spacing: 0.2em;
+  text-align: center;
+  margin-bottom: var(--dl-space-space-halfunit);
+}
+.wyw-subtitle {
+  color: #ffffff;
+  font-size: 100%;
+  letter-spacing: 0.05em;
+  text-align: center;
+  margin-bottom: var(--dl-space-space-doubleunit);
+}
+.wyw-track {
+  display: flex;
+  flex-direction: row;
+  gap: var(--dl-space-space-doubleunit);
+  overflow-x: auto;
+  width: 100%;
+  padding: var(--dl-space-space-unit) var(--dl-space-space-unit) var(--dl-space-space-doubleunit);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.3) transparent;
+}
+.wyw-track::-webkit-scrollbar {
+  height: 4px;
+}
+.wyw-track::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.3);
+  border-radius: 2px;
+}
+.wyw-card {
+  flex: 0 0 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(0,0,0,0.55);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+.wyw-card:hover {
+  transform: scale(1.03);
+}
+.wyw-card-cover {
+  width: 100%;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  display: block;
+}
+.wyw-card-body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+}
+.wyw-card-title {
+  color: #ffffff;
+  font-size: 85%;
+  font-weight: 600;
+  text-align: center;
+  margin: 0;
+  letter-spacing: 0.03em;
+}
+.wyw-card-author {
+  color: rgba(255,255,255,0.7);
+  font-size: 75%;
+  text-align: center;
+  margin: 0;
+}
+.wyw-card-genre {
+  color: rgba(255,255,255,0.5);
+  font-size: 70%;
+  text-align: center;
+  margin: 0;
+  font-style: italic;
+}
+.wyw-amazon-btn {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 6px 12px;
+  background: #FF9900;
+  color: #000000;
+  font-size: 75%;
+  font-weight: 600;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.wyw-amazon-btn:hover {
+  background: #e68a00;
+}
+.wyw-footer {
+  margin-top: var(--dl-space-space-doubleunit);
+}
+.wyw-see-more {
+  color: #ffffff;
+  font-size: 100%;
+  letter-spacing: 0.1em;
+  text-decoration: underline;
+  transition: opacity 0.2s;
+}
+.wyw-see-more:hover {
+  opacity: 0.7;
+}
+.wyw-disclaimer {
+  color: #ffffff;
+  font-size: 75%;
+  font-style: italic;
+  text-align: center;
+  margin-top: var(--dl-space-space-unit);
+}
+@media(max-width: 1200px) {
+  .wyw-title { font-size: 300%; }
+}
+@media(max-width: 767px) {
+  .wyw-title { font-size: 220%; }
+  .wyw-card { flex: 0 0 150px; }
+}
+@media(max-width: 479px) {
+  .wyw-card { flex: 0 0 130px; }
+  .wyw-card-title { font-size: 78%; }
+}
 @media(max-width: 1600px) {
   .books-title {
     color: rgb(255, 255, 255);
