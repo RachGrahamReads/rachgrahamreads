@@ -114,7 +114,7 @@ async function main() {
   const { data, error } = await supabase
     .from('books')
     .select(`
-      id, title, pen_name, amazon_url, cover_image_path, description,
+      id, title, pen_name, amazon_url, cover_image_path, description, books_metadata_id,
       books_metadata(title, subtitle, authors, cover_image_path, cover_image_url, description, genre, asin, isbn10)
     `)
     .not('books_metadata_id', 'is', null);
@@ -122,6 +122,38 @@ async function main() {
   if (error) {
     console.error('Supabase error:', error.message);
     process.exit(1);
+  }
+
+  // For books where the canonical metadata has no asin/isbn10, fall back to
+  // edition rows that point to the canonical as their work_id.
+  const needsEditionLookup = (data || []).filter(
+    b => b.books_metadata && !b.books_metadata.asin && !b.books_metadata.isbn10
+  );
+
+  if (needsEditionLookup.length > 0) {
+    const workIds = needsEditionLookup.map(b => b.books_metadata_id);
+    const { data: editions, error: edErr } = await supabase
+      .from('books_metadata')
+      .select('work_id, title, subtitle, authors, cover_image_path, cover_image_url, description, genre, asin, isbn10')
+      .in('work_id', workIds);
+
+    if (edErr) {
+      console.error('Supabase error fetching editions:', edErr.message);
+      process.exit(1);
+    }
+
+    const editionMap = {};
+    for (const ed of (editions || [])) {
+      if ((ed.asin || ed.isbn10) && !editionMap[ed.work_id]) {
+        editionMap[ed.work_id] = ed;
+      }
+    }
+
+    for (const book of needsEditionLookup) {
+      if (editionMap[book.books_metadata_id]) {
+        book.books_metadata = editionMap[book.books_metadata_id];
+      }
+    }
   }
 
   const books = (data || []).filter(b =>
