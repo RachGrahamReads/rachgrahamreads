@@ -130,29 +130,20 @@ async function main() {
     b => b.books_metadata && !b.books_metadata.asin && !b.books_metadata.isbn10
   );
 
-  if (needsEditionLookup.length > 0) {
-    const workIds = needsEditionLookup.map(b => b.books_metadata_id);
-    const { data: editions, error: edErr } = await supabase
+  for (const book of needsEditionLookup) {
+    const { data: edData, error: edErr } = await supabase
       .from('books_metadata')
-      .select('work_id, title, subtitle, authors, cover_image_path, cover_image_url, description, genre, asin, isbn10')
-      .in('work_id', workIds);
+      .select('title, subtitle, authors, cover_image_path, cover_image_url, description, genre, asin, isbn10')
+      .eq('work_id', book.books_metadata_id);
 
     if (edErr) {
-      console.error('Supabase error fetching editions:', edErr.message);
+      console.error(`Supabase error fetching editions for ${book.title}:`, edErr.message);
       process.exit(1);
     }
 
-    const editionMap = {};
-    for (const ed of (editions || [])) {
-      if ((ed.asin || ed.isbn10) && !editionMap[ed.work_id]) {
-        editionMap[ed.work_id] = ed;
-      }
-    }
-
-    for (const book of needsEditionLookup) {
-      if (editionMap[book.books_metadata_id]) {
-        book.books_metadata = editionMap[book.books_metadata_id];
-      }
+    const edition = (edData || []).find(e => e.asin || e.isbn10);
+    if (edition) {
+      book.books_metadata = edition;
     }
   }
 
